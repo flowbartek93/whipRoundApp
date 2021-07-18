@@ -1,0 +1,13 @@
+a {
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+}
+.btn-group {
+  margin: 2rem;
+  width: 50%;
+}
+
+.btn {
+  margin: 1.2rem;
+}
