@@ -13,6 +13,7 @@ export class AddWhiproundComponent implements OnInit {
   constructor(private whipRoundsService: whipRoundsService) {}
 
   onSubmit() {
+    console.log(this.addWhipRoundForm);
     this.whipRoundsService.addNewWhip(this.addWhipRoundForm.value);
   }
 
