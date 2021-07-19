@@ -1,25 +1,43 @@
-<form class="form">
+<form class="form" #f="ngForm" (ngSubmit)="onSubmit()">
   <div class="row w-50">
     <div class="col-md-6">
       <label for="whipName" class="col-form-label">Name</label>
-      <input type="text" id="whipName" class="form-control" />
+      <input
+        type="text"
+        id="whipName"
+        class="form-control"
+        name="whipName"
+        ngModel
+        required
+        whipName
+        whipName="ngModel"
+      />
     </div>
 
     <div class="col-md-6">
       <label for="amount" class="col-form-label">Amount</label>
-      <input type="number" id="amount" class="form-control" />
+      <input type="number" id="amount" class="form-control" name="amount" ngModel required amount amount="ngModel" />
     </div>
   </div>
 
   <div class="row w-50">
     <div class="col-md-6">
       <label for="subscribers" class="col-form-label">Subscribers</label>
-      <input type="number" id="subscribers" class="form-control" />
+      <input
+        type="number"
+        id="subscribers"
+        class="form-control"
+        name="subscribers"
+        ngModel
+        required
+        subscribers
+        subscribers="ngModel"
+      />
     </div>
 
     <div class="col-md-6">
-      <label for="whipName" class="col-form-label">Price(PLN)</label>
-      <input type="text" id="whipName" class="form-control" />
+      <label for="price" class="col-form-label">Price(PLN)</label>
+      <input type="text" id="price" class="form-control" name="price" ngModel price price="ngModel" />
     </div>
   </div>
 
@@ -31,8 +49,8 @@
         <option value="rub">RUB</option>
         <option value="gbp">GBP</option>
       </select>
-      <label for="whipName" class="col-form-label">Price in:</label>
-      <input type="text" id="whipName" class="form-control" />
+      <label for="price-in" class="col-form-label">Price in:</label>
+      <input type="text" id="price-in" class="form-control" name="price-in" ngModel pricein pricein="ngModel" />
     </div>
   </div>
 

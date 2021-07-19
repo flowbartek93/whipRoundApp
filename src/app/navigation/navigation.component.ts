@@ -10,7 +10,7 @@ export class NavigationComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   onAddWhipround() {
-    this.router.navigate([{ outlets: { new: "new-whip" } }], { relativeTo: this.route });
+    this.router.navigate(["new-whip"], { relativeTo: this.route });
   }
   ngOnInit(): void {}
 }

@@ -8,7 +8,8 @@ import { WhipRoundListComponent } from "./whip-round-list/whip-round-list.compon
 import { WhipRoundItemComponent } from "./whip-round-list/whip-round-item/whip-round-item.component";
 import { AddWhiproundComponent } from "./add-whipround/add-whipround.component";
 import { appRouting } from "./app-routing.module";
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from "./home/home.component";
+import { whipRoundsService } from "./whip-round-list/whip-rounds.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [BrowserModule, FormsModule, appRouting],
-  providers: [],
+  providers: [whipRoundsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

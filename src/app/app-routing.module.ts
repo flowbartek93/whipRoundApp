@@ -5,12 +5,12 @@ import { AddWhiproundComponent } from "./add-whipround/add-whipround.component";
 import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
+  { path: "", redirectTo: "/home", pathMatch: "full" },
   {
     path: "home",
     component: HomeComponent,
-    children: [{ path: "new-whip", component: AddWhiproundComponent, outlet: "new" }]
-  },
-  { path: "", redirectTo: "/home", pathMatch: "full" }
+    children: [{ path: "new-whip", component: AddWhiproundComponent }]
+  }
 ];
 
 @NgModule({
