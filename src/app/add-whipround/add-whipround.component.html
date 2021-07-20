@@ -19,7 +19,7 @@
     <div class="col-md-6">
       <label for="amount" class="col-form-label">Amount</label>
       <input
-        type="number"
+        type="text"
         id="amount"
         class="form-control"
         name="amount"
@@ -28,10 +28,13 @@
         #amount="ngModel"
         max="10"
         min="0"
-        pattern="^[1-9]+[0-9]*$"
+        pattern="^[0-9]*$"
       />
 
-      <span class="invalid" *ngIf="!amount.valid && amount.touched">Invalid Value</span>
+      <span class="invalid" *ngIf="amount.errors?.pattern && amount.touched">Invalid Value</span>
+      <span class="invalid" *ngIf="amount.errors?.required && amount.touched"
+        >You should provide at least one unit</span
+      >
     </div>
   </div>
 
@@ -39,7 +42,7 @@
     <div class="col-md-6">
       <label for="subscribers" class="col-form-label">Subscribers</label>
       <input
-        type="number"
+        type="text"
         id="subscribers"
         class="form-control"
         name="subscribers"
@@ -47,40 +50,48 @@
         required
         subscribers
         #subscribers="ngModel"
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="price" class="col-form-label">price</label>
-      <input
-        type="number"
-        id="price"
-        class="form-control"
-        name="price"
-        ngModel
-        required
-        #price="ngModel"
-        max="100"
-        min="0"
-        pattern="^[1-9]+[0-9]*$"
+        pattern="^[0-9]*$"
       />
 
-      <span class="invalid" *ngIf="!price.valid && price.touched">Invalid Value</span>
+      <span class="invalid" *ngIf="subscribers.errors?.pattern && subscribers.touched">Invalid Value</span>
     </div>
   </div>
 
-  <div class="row mb-3">
-    <div class="col-md-3">
-      <select class="select mb-3">
-        <option value="usd">USD</option>
-        <option value="eur">EUR</option>
-        <option value="rub">RUB</option>
-        <option value="gbp">GBP</option>
-      </select>
-      <label for="price-in" class="col-form-label">Price in:</label>
-      <input type="number" id="price-in" class="form-control" name="price-in" ngModel pricein #pricein="ngModel" />
+  <div class="form-group" #prices="ngModelGroup" ngModelGroup ProvidePriceValidator>
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="price" class="col-form-label">price(PLN)</label>
+        <input type="text" id="price" class="form-control" name="price" ngModel #price="ngModel" pattern="^[0-9]*$" />
 
-      <span class="invalid" *ngIf="!pricein.valid && pricein.touched">Invalid Value</span>
+        <span class="invalid" *ngIf="price.errors?.pattern && price.touched">Invalid Value</span>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="pricein" class="col-form-label">Price in:</label>
+        <select class="select mb-3">
+          <option value="usd">USD</option>
+          <option value="eur">EUR</option>
+          <option value="rub">RUB</option>
+          <option value="gbp">GBP</option>
+        </select>
+
+        <input
+          type="text"
+          id="pricein"
+          class="form-control"
+          name="pricein"
+          ngModel
+          pricein
+          #pricein="ngModel"
+          pattern="^[0-9]*$"
+        />
+
+        <span class="invalid" *ngIf="pricein.errors?.pattern && pricein.touched">Invalid Value</span>
+        <span class="invalid" *ngIf="!prices.valid && prices.touched"
+          >Provide at least one price value(PLN or another currency)</span
+        >
+      </div>
     </div>
   </div>
 

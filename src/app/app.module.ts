@@ -10,6 +10,7 @@ import { AddWhiproundComponent } from "./add-whipround/add-whipround.component";
 import { appRouting } from "./app-routing.module";
 import { HomeComponent } from "./home/home.component";
 import { whipRoundsService } from "./whip-round-list/whip-rounds.service";
+import { providePrice } from "./add-whipround/form.directive";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { whipRoundsService } from "./whip-round-list/whip-rounds.service";
     WhipRoundListComponent,
     WhipRoundItemComponent,
     AddWhiproundComponent,
-    HomeComponent
+    HomeComponent,
+    providePrice
   ],
   imports: [BrowserModule, FormsModule, appRouting],
   providers: [whipRoundsService],

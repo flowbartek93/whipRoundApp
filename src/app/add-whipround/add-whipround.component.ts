@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { NgForm, NgModelGroup } from "@angular/forms";
 import { whipRoundsService } from "../whip-round-list/whip-rounds.service";
 
 @Component({
@@ -9,11 +9,13 @@ import { whipRoundsService } from "../whip-round-list/whip-rounds.service";
 })
 export class AddWhiproundComponent implements OnInit {
   @ViewChild("f", { static: false }) addWhipRoundForm: NgForm;
+  // @ViewChild("prices", { static: false }) prices: NgModelGroup;
 
   constructor(private whipRoundsService: whipRoundsService) {}
 
   onSubmit() {
-    console.log(this.addWhipRoundForm);
+    // console.log(this.prices.value);
+
     this.whipRoundsService.addNewWhip(this.addWhipRoundForm.value);
   }
 

@@ -7,3 +7,6 @@ label {
 .btn {
   margin: 0.6rem;
 }
+.col-form-label {
+  padding: 0.5rem;
+}
