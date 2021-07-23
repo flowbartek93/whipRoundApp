@@ -90,8 +90,8 @@
           class="form-control"
           name="pricein"
           ngModel
-          pricein
           #pricein="ngModel"
+          [(ngModel)]="priceinValue"
           pattern="^[0-9]*$"
         />
 

@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
+import { HttpClientModule } from "@angular/common/http";
+
 import { AppComponent } from "./app.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { WhipRoundListComponent } from "./whip-round-list/whip-round-list.component";
@@ -22,7 +24,7 @@ import { providePrice } from "./add-whipround/form.directive";
     HomeComponent,
     providePrice
   ],
-  imports: [BrowserModule, FormsModule, appRouting],
+  imports: [BrowserModule, FormsModule, HttpClientModule, appRouting],
   providers: [whipRoundsService],
   bootstrap: [AppComponent]
 })
