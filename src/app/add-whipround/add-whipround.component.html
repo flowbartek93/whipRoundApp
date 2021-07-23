@@ -61,7 +61,15 @@
     <div class="row mb-3">
       <div class="col-md-3">
         <label for="price" class="col-form-label">price(PLN)</label>
-        <input type="text" id="price" class="form-control" name="price" ngModel #price="ngModel" pattern="^[0-9]*$" />
+        <input
+          type="text"
+          id="price"
+          class="form-control"
+          name="price"
+          [(ngModel)]="priceValue"
+          #price="ngModel"
+          pattern="^[0-9]*$"
+        />
 
         <span class="invalid" *ngIf="price.errors?.pattern && price.touched">Invalid Value</span>
       </div>

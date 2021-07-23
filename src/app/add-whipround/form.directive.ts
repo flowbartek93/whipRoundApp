@@ -12,10 +12,10 @@ import { AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, FormGroup 
   ]
 })
 export class providePrice implements Validator {
+  priceValue: number;
+
   validate(group: AbstractControl): ValidationErrors | null {
     const controls = (group as FormGroup).controls;
-
-    console.log(controls);
 
     if (controls.price?.value === "" && controls.pricein?.value === "") {
       console.log("puste kontrolki");
