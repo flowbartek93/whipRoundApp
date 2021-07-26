@@ -15,18 +15,34 @@ export class converterService {
   public exchanges: exchange;
 
   getExchanges() {
-    this.httpClient
-      .get<any>(`${this.basicUrl}`, { params: { access_key: this.apiKey } })
-      .pipe(
-        map(props => {
-          return {
-            base: props.base,
-            rate: props.rates.PLN
-          };
-        })
-      )
-      .subscribe(data => {
-        this.exchanges = data;
-      });
+    // this.httpClient
+    //   .get<any>(`${this.basicUrl}`, { params: { access_key: this.apiKey } })
+    //   .pipe(
+    //     map(props => {
+    //       return {
+    //         base: props.base,
+    //         rate: {
+    //           pln: props.rates.PLN,
+    //           gbp: props.rates.GBP,
+    //           usd: props.rates.USD,
+    //           RUB: props.rates.RUB
+    //         }
+    //       };
+    //     })
+    //   )
+    //   .subscribe(data => {
+    //     this.exchanges = data;
+    //     console.log(this.exchanges);
+    //   });
+
+    return (this.exchanges = {
+      base: "EUR",
+      rate: {
+        PLN: 2,
+        GBP: 4,
+        USD: 10,
+        RUB: 20
+      }
+    });
   }
 }

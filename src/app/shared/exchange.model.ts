@@ -1,9 +1,14 @@
 export class exchange {
   public base: string;
-  public rate: number;
+  public rate: {};
 
   constructor(base, rate) {
     this.base = base;
-    this.rate = rate;
+    this.rate = {
+      pln: rate.pln,
+      gbp: rate.gbp,
+      usd: rate.usd,
+      RUB: rate.rub
+    };
   }
 }

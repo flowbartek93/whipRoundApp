@@ -68,20 +68,26 @@
           name="price"
           [(ngModel)]="priceValue"
           #price="ngModel"
-          pattern="^[0-9]*$"
+          pattern="^(0|[1-9]\d*)(\.\d+)?$"
         />
 
         <span class="invalid" *ngIf="price.errors?.pattern && price.touched">Invalid Value</span>
       </div>
     </div>
+
     <div class="row mb-3">
       <div class="col-md-3">
         <label for="pricein" class="col-form-label">Price in:</label>
-        <select class="select mb-3">
-          <option value="usd">USD</option>
-          <option value="eur">EUR</option>
-          <option value="rub">RUB</option>
-          <option value="gbp">GBP</option>
+        <select
+          [(ngModel)]="selectedExchange"
+          #exchange="ngModel"
+          (ngModelChange)="setExchange(exchange)"
+          class="select mb-3"
+          name="selectExchange"
+        >
+          <option *ngFor="let exchange of exchangesKeys; let i = index" [ngValue]="exchange">
+            {{ exchange }}
+          </option>
         </select>
 
         <input
@@ -92,7 +98,7 @@
           ngModel
           #pricein="ngModel"
           [(ngModel)]="priceinValue"
-          pattern="^[0-9]*$"
+          pattern="^(0|[1-9]\d*)(\.\d+)?$"
         />
 
         <span class="invalid" *ngIf="pricein.errors?.pattern && pricein.touched">Invalid Value</span>
