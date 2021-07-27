@@ -47,7 +47,6 @@ export class AddWhiproundComponent implements OnInit, AfterViewChecked, OnChange
 
     if (this.converter.exchanges) {
       exchangeRates = this.converter.exchanges.rate;
-      console.log(exchangeRates);
     } else {
       return;
     }
@@ -58,8 +57,6 @@ export class AddWhiproundComponent implements OnInit, AfterViewChecked, OnChange
         let rateName;
         if (exchangeRates.hasOwnProperty(this.selectedExchange)) {
           rateName = this.selectedExchange;
-
-          console.log(exchangeRates);
 
           switch (rateName) {
             case "PLN":

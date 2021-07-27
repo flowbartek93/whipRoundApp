@@ -15,9 +15,9 @@ export class whipRoundsService implements OnInit {
     return this.whipRounds.slice();
   }
 
-  addNewWhip(whip: whipRound) {
+  addNewWhip(whip) {
     console.log(whip);
-    this.whipRounds.push(new whipRound(whip.whipName, whip.amount, whip.subscribers, whip.price));
+    this.whipRounds.push(new whipRound(whip.whipName, whip.amount, whip.subscribers, whip.prices.price));
     this.listChanged.next(this.whipRounds.slice());
   }
 

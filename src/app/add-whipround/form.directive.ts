@@ -17,10 +17,12 @@ export class providePrice implements Validator {
   validate(group: AbstractControl): ValidationErrors | null {
     const controls = (group as FormGroup).controls;
 
-    if (controls.price?.value === "" && controls.pricein?.value === "") {
+    if (controls.price?.value === undefined && controls.pricein?.value === undefined) {
       console.log("puste kontrolki");
+
       return { noPricesProvdied: true };
     } else {
+      console.log("no error in validator");
       return null;
     }
   }
