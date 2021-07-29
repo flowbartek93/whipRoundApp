@@ -6,7 +6,7 @@ import { whipRound } from "./whip-round-item/whip-round.model";
   providedIn: "root"
 })
 export class whipRoundsService implements OnInit {
-  whipRounds: whipRound[] = [new whipRound("armbars", 1, "10", "30")];
+  whipRounds: whipRound[] = [];
   listChanged = new Subject<whipRound[]>();
 
   constructor() {}
@@ -17,7 +17,9 @@ export class whipRoundsService implements OnInit {
 
   addNewWhip(whip) {
     console.log(whip);
-    this.whipRounds.push(new whipRound(whip.whipName, whip.amount, whip.subscribers, whip.prices.price));
+    this.whipRounds.push(
+      new whipRound(whip.whipName, whip.amount, whip.subscribers, whip.prices, { pricePerPerson: null })
+    );
     this.listChanged.next(this.whipRounds.slice());
   }
 

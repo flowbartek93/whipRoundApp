@@ -7,7 +7,9 @@
           <th scope="col">Name</th>
           <th scope="col">Amount</th>
           <th scope="col">Subscirbers</th>
-          <th scope="col">Price</th>
+          <th scope="col">Price(PLN)</th>
+          <th scope="col">Price(In)</th>
+          <th scope="col">Price per person</th>
         </tr>
       </thead>
       <tbody>
@@ -16,7 +18,9 @@
           <td>{{ item.whipName }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.subscribers }}</td>
-          <td>{{ item.price }}</td>
+          <td>{{ item.prices.price }}</td>
+          <td>{{ item.prices.pricein + " " + item.prices.selectExchange }}</td>
+          <td>{{ item.additionalData.pricePerPerson + " " + "PLN" }}</td>
         </tr>
 
         <!-- <!-- <tr>
