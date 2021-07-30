@@ -18,6 +18,10 @@ export class converterService {
     this.httpClient.post(`${this.firestoreUrl}whiprounds.json`, body).subscribe(res => console.log(res));
   }
 
+  getWhiprounds() {
+    return this.httpClient.get(`${this.firestoreUrl}whiprounds.json`);
+  }
+
   getExchanges() {
     // this.httpClient
     //   .get<any>(`${this.basicUrl}`, { params: { access_key: this.apiKey } })

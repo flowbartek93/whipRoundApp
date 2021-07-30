@@ -12,7 +12,7 @@ import { NgForm, NgModelGroup } from "@angular/forms";
 import { converterService } from "../shared/converter.service";
 import { exchange } from "../shared/exchange.model";
 
-import { whipRoundsService } from "../whip-round-list/whip-rounds.service";
+import { whipRoundsService } from "../shared/whip-rounds.service";
 
 @Component({
   selector: "app-add-whipround",

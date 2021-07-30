@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription, from } from "rxjs";
 import { map } from "rxjs/operators";
 import { converterService } from "../shared/converter.service";
-import { whipRound } from "./whip-round-item/whip-round.model";
-import { whipRoundsService } from "./whip-rounds.service";
+import { whipRound } from "./whip-round.model";
+import { whipRoundsService } from "../shared/whip-rounds.service";
 
 @Component({
   selector: "app-whip-round-list",
@@ -14,7 +14,7 @@ export class WhipRoundListComponent implements OnInit, OnDestroy {
   public allWhipRounds;
 
   subscription: Subscription;
-  constructor(private whipRoundsService: whipRoundsService, private converterService: converterService) {}
+  constructor(private whipRoundsService: whipRoundsService) {}
 
   priceIn: number; // price in selected currency (to de displayed in table)
 
@@ -40,6 +40,8 @@ export class WhipRoundListComponent implements OnInit, OnDestroy {
 
     //wyświetlenie tych które już są w tablicy
     // this.allWhipRounds = this.whipRoundsService.getWhipRounds();
+
+    //firebase query
   }
 
   ngOnDestroy() {
