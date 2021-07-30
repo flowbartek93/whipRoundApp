@@ -1,18 +1,22 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map } from "rxjs/operators";
 import { exchange } from "./exchange.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class converterService {
-  private basicUrl: string = "http://api.exchangeratesapi.io/v1/latest";
-  private apiKey: string = "908a441d5c8a2f57dfd54300f580f227";
+  private firestoreUrl: string = "https://whiproundapp-6e743-default-rtdb.firebaseio.com/";
 
   constructor(private httpClient: HttpClient) {}
 
   public exchanges: exchange;
+
+  nbpapi: string = "http://api.nbp.pl/api/exchangerates/tables/a/?format=json";
+
+  setWhiprounds(body) {
+    this.httpClient.post(`${this.firestoreUrl}whiprounds.json`, body).subscribe(res => console.log(res));
+  }
 
   getExchanges() {
     // this.httpClient

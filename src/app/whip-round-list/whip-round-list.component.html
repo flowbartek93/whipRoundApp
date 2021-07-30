@@ -19,8 +19,8 @@
           <td>{{ item.amount }}</td>
           <td>{{ item.subscribers }}</td>
           <td>{{ item.prices.price }}</td>
-          <td>{{ item.prices.pricein + " " + item.prices.selectExchange }}</td>
-          <td>{{ item.additionalData.pricePerPerson + " " + "PLN" }}</td>
+          <td>{{ item.prices.pricein | currency: item.prices.selectExchange + " " }}</td>
+          <td>{{ item.additionalData.pricePerPerson | currency: "PLN " }}</td>
         </tr>
 
         <!-- <!-- <tr>

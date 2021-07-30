@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription, from } from "rxjs";
-import { tap, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
+import { converterService } from "../shared/converter.service";
 import { whipRound } from "./whip-round-item/whip-round.model";
 import { whipRoundsService } from "./whip-rounds.service";
 
@@ -13,7 +14,7 @@ export class WhipRoundListComponent implements OnInit, OnDestroy {
   public allWhipRounds;
 
   subscription: Subscription;
-  constructor(private whipRoundsService: whipRoundsService) {}
+  constructor(private whipRoundsService: whipRoundsService, private converterService: converterService) {}
 
   priceIn: number; // price in selected currency (to de displayed in table)
 
