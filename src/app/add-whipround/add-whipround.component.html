@@ -66,7 +66,7 @@
           id="price"
           class="form-control"
           name="price"
-          [(ngModel)]="priceValue"
+          ngModel
           #price="ngModel"
           pattern="^(0|[1-9]\d*)(\.\d+)?$"
         />
@@ -95,9 +95,9 @@
           id="pricein"
           class="form-control"
           name="pricein"
+          (ngModelChange)="OnPriceInProvided(pricein)"
           ngModel
           #pricein="ngModel"
-          [(ngModel)]="priceinValue"
           pattern="^(0|[1-9]\d*)(\.\d+)?$"
         />
 

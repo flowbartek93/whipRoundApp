@@ -43,7 +43,7 @@ export class converterService {
     //     console.log(this.exchanges);
     //   });
 
-    return (this.exchanges = {
+    return <exchange>(this.exchanges = {
       base: "EUR",
       rate: {
         PLN: 2,

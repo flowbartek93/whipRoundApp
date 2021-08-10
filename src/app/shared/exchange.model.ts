@@ -1,13 +1,20 @@
+export interface rateList {
+  PLN: number;
+  GBP: number;
+  USD: number;
+  RUB: number;
+}
+
 export class exchange {
   public base: string;
-  public rate: {};
+  public rate: rateList;
 
   constructor(base, rate) {
     this.base = base;
     this.rate = {
-      pln: rate.pln,
-      gbp: rate.gbp,
-      usd: rate.usd,
+      PLN: rate.pln,
+      GBP: rate.gbp,
+      USD: rate.usd,
       RUB: rate.rub
     };
   }

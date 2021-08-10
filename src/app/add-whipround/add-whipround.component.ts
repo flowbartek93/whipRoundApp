@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core";
-import { NgForm, NgModelGroup } from "@angular/forms";
+import { FormControl, NgForm, NgModelGroup } from "@angular/forms";
 import { converterService } from "../shared/converter.service";
 import { exchange } from "../shared/exchange.model";
 
@@ -20,90 +20,78 @@ import { whipRoundsService } from "../shared/whip-rounds.service";
   styleUrls: ["./add-whipround.component.css"]
 })
 export class AddWhiproundComponent implements OnInit, AfterViewChecked, OnChanges, AfterViewInit {
-  @ViewChild("f", { static: false }) addWhipRoundForm: NgForm;
-  @ViewChild("prices", { static: false }) prices: NgModelGroup;
+  @ViewChild("f", { static: false }) addWhipRoundForm: NgForm; // Overall form
+  @ViewChild("prices", { static: false }) prices: NgModelGroup; // forms that have prices
 
-  @Input() priceValue: number;
-  @Input() priceinValue: number;
+  public priceValue: number;
+  public priceinValue: number;
 
-  selectedExchange;
+  public selectedExchange: string;
+  public exchanges: exchange; //list of all accessible currencies and base
+  public exchangesKeys: string[];
 
-  exchanges;
-  exchangesKeys;
+  public rateValue: number;
 
-  constructor(
-    private whipRoundsService: whipRoundsService,
-    private converter: converterService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+  constructor(private whipRoundsService: whipRoundsService, private converter: converterService) {}
 
   onSubmit() {
     this.whipRoundsService.addNewWhip(this.addWhipRoundForm.value);
   }
 
-  ngAfterViewChecked() {
-    let exchangeRates;
-    let convertedValue;
-
-    if (this.converter.exchanges) {
-      exchangeRates = this.converter.exchanges.rate;
-    } else {
-      return;
-    }
-
-    if (exchangeRates) {
-      if (this.prices.control) {
-        let rateValue;
-        let rateName;
-        if (exchangeRates.hasOwnProperty(this.selectedExchange)) {
-          rateName = this.selectedExchange;
-
-          switch (rateName) {
-            case "PLN":
-              rateValue = exchangeRates.PLN;
-              break;
-            case "USD":
-              rateValue = exchangeRates.USD;
-              break;
-            case "GBP":
-              rateValue = exchangeRates.GBP;
-              break;
-            case "RUB":
-              rateValue = exchangeRates.RUB;
-              break;
-          }
-
-          convertedValue = (this.priceinValue * rateValue).toFixed(2);
-
-          if (this.priceinValue !== undefined || null) {
-            this.prices.control.controls.price.setValue(convertedValue);
-          }
-        }
-
-        this.changeDetector.detectChanges();
-      }
-    } else {
-      return;
-    }
+  setExchange(exchange) {
+    console.log("setExchange() fires");
+    this.selectedExchange = exchange.value;
+    this.setRateValue();
   }
 
-  ngOnChanges() {}
+  OnPriceInProvided(pricein: FormControl) {
+    pricein.valueChanges.subscribe((val: number) => {
+      this.convertPrice(val);
+    });
+  }
 
-  ngAfterViewInit() {}
+  convertPrice(price: number) {}
 
-  setExchange(exchange) {
-    this.selectedExchange = exchange.value;
+  setRateValue() {
+    //czy serwis zawiera obiekt exchanges
+    if (this.converter.exchanges) {
+      let exchangeRates = this.converter.exchanges.rate;
+
+      switch (this.selectedExchange) {
+        case "PLN":
+          this.rateValue = exchangeRates.PLN;
+          break;
+        case "USD":
+          this.rateValue = exchangeRates.USD;
+          break;
+        case "GBP":
+          this.rateValue = exchangeRates.GBP;
+          break;
+        case "RUB":
+          this.rateValue = exchangeRates.RUB;
+          break;
+      }
+    }
   }
 
   ngOnInit(): void {
     this.exchanges = this.converter.getExchanges();
+
     //pobieranie obiektu exchanges
 
     this.exchangesKeys = Object.keys(this.exchanges.rate);
     //zwrotka w postaci tablicy z stringami(nazwami walut)
 
     this.selectedExchange = this.exchangesKeys[0];
-
-    //istawienie selected exchange na pierwszy string exchangeKeys
+    this.setRateValue();
+    //ustawienie selected exchange na pierwszy string exchangeKeys(PLN)
   }
+
+  ngAfterViewChecked() {}
+
+  ngOnChanges() {
+    console.log("OnChange");
+  }
+
+  ngAfterViewInit() {}
 }
