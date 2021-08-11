@@ -29,7 +29,7 @@ export class whipRoundsService implements OnInit {
         const newArray = Object.values(res);
 
         this.whipRounds = newArray;
-        console.log(this.whipRounds);
+
         this.listChanged.next(this.whipRounds.slice());
       });
   }

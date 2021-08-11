@@ -1,6 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { exchange } from "./exchange.model";
+
+import { from, Subject } from "rxjs";
+import { map } from "rxjs/operators";
+
+import { exchanges } from "./exchange.model";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +14,7 @@ export class converterService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public exchanges: exchange;
+  public exchanges = new Subject<exchanges>();
 
   nbpapi: string = "http://api.nbp.pl/api/exchangerates/tables/a/?format=json";
 
@@ -23,34 +27,27 @@ export class converterService {
   }
 
   getExchanges() {
-    // this.httpClient
-    //   .get<any>(`${this.basicUrl}`, { params: { access_key: this.apiKey } })
-    //   .pipe(
-    //     map(props => {
-    //       return {
-    //         base: props.base,
-    //         rate: {
-    //           pln: props.rates.PLN,
-    //           gbp: props.rates.GBP,
-    //           usd: props.rates.USD,
-    //           RUB: props.rates.RUB
-    //         }
-    //       };
-    //     })
-    //   )
-    //   .subscribe(data => {
-    //     this.exchanges = data;
-    //     console.log(this.exchanges);
-    //   });
+    this.httpClient
+      .get(`${this.nbpapi}`)
+      .pipe(
+        map((arr: any) => {
+          let arrayRates;
 
-    return <exchange>(this.exchanges = {
-      base: "EUR",
-      rate: {
-        PLN: 2,
-        GBP: 4,
-        USD: 10,
-        RUB: 20
-      }
-    });
+          from(arr).subscribe((val: any) => {
+            arrayRates = val.rates.filter(
+              currency =>
+                currency.code === "USD" || currency.code === "GBP" || currency.code === "EUR" || currency.code === "RUB"
+            );
+          });
+
+          return arrayRates;
+        })
+      )
+
+      .subscribe(data => {
+        this.exchanges.next(data);
+      });
+
+    return this.exchanges;
   }
 }

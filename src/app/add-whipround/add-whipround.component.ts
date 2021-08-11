@@ -10,7 +10,7 @@ import {
 } from "@angular/core";
 import { FormControl, NgForm, NgModelGroup } from "@angular/forms";
 import { converterService } from "../shared/converter.service";
-import { exchange } from "../shared/exchange.model";
+import { exchanges } from "../shared/exchange.model";
 
 import { whipRoundsService } from "../shared/whip-rounds.service";
 
@@ -26,8 +26,8 @@ export class AddWhiproundComponent implements OnInit, AfterViewChecked, OnChange
   public priceValue: number;
   public priceinValue: number;
 
-  public selectedExchange: string;
-  public exchanges: exchange; //list of all accessible currencies and base
+  public selectedExchange: string = "USD";
+  public exchangeRates; //list of all accessible currencies and base
   public exchangesKeys: string[];
 
   public rateValue: number;
@@ -50,41 +50,52 @@ export class AddWhiproundComponent implements OnInit, AfterViewChecked, OnChange
     });
   }
 
-  convertPrice(price: number) {}
+  convertPrice(price: number) {
+    let convertedValue = (price * this.rateValue).toFixed(2);
+
+    if (price) {
+      this.prices.control.controls.price.setValue(convertedValue);
+    }
+  }
 
   setRateValue() {
     //czy serwis zawiera obiekt exchanges
-    if (this.converter.exchanges) {
-      let exchangeRates = this.converter.exchanges.rate;
 
-      switch (this.selectedExchange) {
-        case "PLN":
-          this.rateValue = exchangeRates.PLN;
-          break;
-        case "USD":
-          this.rateValue = exchangeRates.USD;
-          break;
-        case "GBP":
-          this.rateValue = exchangeRates.GBP;
-          break;
-        case "RUB":
-          this.rateValue = exchangeRates.RUB;
-          break;
-      }
+    switch (this.selectedExchange) {
+      case "USD":
+        this.rateValue = this.exchangeRates[0].mid;
+        break;
+      case "EUR":
+        this.rateValue = this.exchangeRates[1].mid;
+        break;
+      case "GBP":
+        this.rateValue = this.exchangeRates[2].mid;
+        break;
+      case "RUB":
+        this.rateValue = this.exchangeRates[3].mid;
+        break;
     }
   }
 
   ngOnInit(): void {
-    this.exchanges = this.converter.getExchanges();
+    this.converter.getExchanges().subscribe(exchanges => {
+      this.exchangeRates = exchanges;
+      console.log(this.exchangeRates);
+
+      this.exchangesKeys = this.exchangeRates.map(singleData => {
+        return singleData.code;
+      });
+
+      this.setRateValue();
+    });
 
     //pobieranie obiektu exchanges
 
-    this.exchangesKeys = Object.keys(this.exchanges.rate);
-    //zwrotka w postaci tablicy z stringami(nazwami walut)
+    // zwrotka w postaci tablicy z stringami(nazwami walut)
 
-    this.selectedExchange = this.exchangesKeys[0];
-    this.setRateValue();
-    //ustawienie selected exchange na pierwszy string exchangeKeys(PLN)
+    // ustawienie selected exchange na pierwszy string exchangeKeys(PLN)
+
+    //Ustawienie przelicznika walut
   }
 
   ngAfterViewChecked() {}

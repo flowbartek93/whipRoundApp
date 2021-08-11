@@ -30,7 +30,6 @@ export class WhipRoundListComponent implements OnInit, OnDestroy {
             ).toFixed(2);
           });
 
-          console.log(whiproundArray);
           return whiproundArray;
         })
       )
